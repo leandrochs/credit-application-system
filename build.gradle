@@ -25,7 +25,11 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
 	runtimeOnly 'com.h2database:h2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://junit.org/junit5/docs/current/user-guide/
+	// https://assertj.github.io/doc/
+    // https://mockk.io/
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // já importa JUnit
+	testImplementation 'io.mockk:mockk:1.13.4'
 }
 
 tasks.withType(KotlinCompile).configureEach {
