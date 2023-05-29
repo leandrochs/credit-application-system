@@ -196,6 +196,31 @@ class CustomerResourceTest {
       .andDo(MockMvcResultHandlers.print())
   }
 
+  @Test
+  fun `should update a customer and return 200 status`() {
+    //given
+    val customer: Customer = customerRepository.save(builderCustomerDto().toEntity())
+    val customerUpdateDto: CustomerUpdateDto = builderCustomerUpdateDto()
+    val valueAsString: String = objectMapper.writeValueAsString(customerUpdateDto)
+    //when
+    //then
+    mockMvc.perform(
+      MockMvcRequestBuilders.patch("$URL?customerId=${customer.id}")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(valueAsString)
+    )
+      .andExpect(MockMvcResultMatchers.status().isOk)
+      .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("AnaUpdate"))
+      .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("MariaUpdate"))
+      .andExpect(MockMvcResultMatchers.jsonPath("$.cpf").value("02730702075"))
+      .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("ana@gmail.com"))
+      .andExpect(MockMvcResultMatchers.jsonPath("$.income").value("5000.0"))
+      .andExpect(MockMvcResultMatchers.jsonPath("$.zipCode").value("45656"))
+      .andExpect(MockMvcResultMatchers.jsonPath("$.street").value("Rua Updated"))
+      //.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+      .andDo(MockMvcResultHandlers.print())
+  }
+
   private fun builderCustomerDto(
     firstName: String = "Ana",
     lastName: String = "Maria",
