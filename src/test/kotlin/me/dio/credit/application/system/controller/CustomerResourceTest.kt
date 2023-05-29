@@ -159,6 +159,20 @@ class CustomerResourceTest {
       .andDo(MockMvcResultHandlers.print())
   }
 
+  @Test
+  fun `should delete customer by id and return 204 status`() {
+    //given
+    val customer: Customer = customerRepository.save(builderCustomerDto().toEntity())
+    //when
+    //then
+    mockMvc.perform(
+      MockMvcRequestBuilders.delete("$URL/${customer.id}")
+        .accept(MediaType.APPLICATION_JSON)
+    )
+      .andExpect(MockMvcResultMatchers.status().isNoContent)
+      .andDo(MockMvcResultHandlers.print())
+  }
+
   private fun builderCustomerDto(
     firstName: String = "Ana",
     lastName: String = "Maria",
