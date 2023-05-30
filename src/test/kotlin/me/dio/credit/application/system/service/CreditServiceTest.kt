@@ -41,7 +41,25 @@ class CreditServiceTest {
         verify(exactly = 1) { creditRepository.save(fakeCredit) }
     }
 
+    @Test
+    fun `should find all credits by customer`() {
+        // given
+        val customerId = 1L
+        val fakeCredits = listOf(
+            buildCredit(customer = buildCustomer(id = customerId)),
+            buildCredit(customer = buildCustomer(id = customerId))
+        )
+        every { creditRepository.findAllByCustomerId(customerId) } returns fakeCredits
 
+        // when
+        val foundCredits = creditService.findAllByCustomer(customerId)
+
+        // then
+        assertThat(foundCredits).isNotNull
+        assertThat(foundCredits).hasSize(2)
+        assertThat(foundCredits).isEqualTo(fakeCredits)
+        verify(exactly = 1) { creditRepository.findAllByCustomerId(customerId) }
+    }
 
     private fun buildCredit(
         creditValue: BigDecimal = BigDecimal.valueOf(500.0),
