@@ -1,3 +1,8 @@
+<h1>Testes para API REST</h1>
+
+<p>Foram adicionados testes paras as classes do seguinte projeto:</p>
+</br>
+
 <h1>request-credit-system</h1>
 <p align="center">API Rest para um Sistema de Analise de Solicitação de Crédito</p>
 <p align="center">
